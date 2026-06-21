@@ -40,7 +40,7 @@
   </div>
 
   <div class="actions">
-    <a class="save" id="save" href="namecard.jpg" download="DrLamChunLeung-namecard.jpg">🖼️ Save to Photos</a>
+    <a class="save" id="save" href="namecard.jpg">🖼️ Save to Photos</a>
     <a class="contact" id="vcf" href="#">📇 Add to contacts</a>
   </div>
 
@@ -50,20 +50,25 @@
 
 <script>
   // Save straight to the phone's photo album via the native share sheet.
-  // (Browsers can't write to Photos silently — the share sheet's "Save Image" does it.)
-  var saveBtn = document.getElementById("save");
-  saveBtn.addEventListener("click", async function (e) {
+  // iOS requires navigator.share() to fire SYNCHRONOUSLY inside the tap (no await before it),
+  // so we preload the image into a File on page load and share that file on click.
+  var cardFile = null;
+  (async function preload() {
     try {
       var resp = await fetch("namecard.jpg", { cache: "force-cache" });
       var blob = await resp.blob();
-      var file = new File([blob], "DrLamChunLeung-namecard.jpg", { type: blob.type || "image/jpeg" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        e.preventDefault();
-        await navigator.share({ files: [file], title: "Dr. Lam Chun Leung 林俊良醫生" });
-      }
-      // else: let the default download (href) run — older phones save to Downloads/Gallery.
-    } catch (err) {
-      // user cancelled the share sheet, or share unsupported — ignore / fall back to download
+      cardFile = new File([blob], "DrLamChunLeung-namecard.jpg", { type: blob.type || "image/jpeg" });
+    } catch (e) { /* will fall back below */ }
+  })();
+
+  document.getElementById("save").addEventListener("click", function (e) {
+    e.preventDefault();
+    if (cardFile && navigator.canShare && navigator.canShare({ files: [cardFile] })) {
+      // Share sheet → "Save Image" → goes into Photos album.
+      navigator.share({ files: [cardFile], title: "Dr. Lam Chun Leung 林俊良醫生" }).catch(function () {});
+    } else {
+      // Fallback: open the full image so the user can long-press → "Add to Photos".
+      window.open("namecard.jpg", "_blank");
     }
   });
 </script>
