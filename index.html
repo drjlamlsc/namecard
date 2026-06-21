@@ -27,7 +27,7 @@
     padding: 15px 18px; border-radius: 12px; font-size: 1rem; font-weight: 600;
   }
   .save { background: #16a34a; color: #fff; }
-  .contact { background: #fff; color: #0f3d2e; }
+  .contact { background: #25D366; color: #fff; }
   .actions a:active { transform: scale(.98); }
   .hint { color: #ffffffcc; font-size: .85rem; text-align: center; max-width: 560px; margin-top: -6px; }
   .hint b { color: #fff; }
@@ -41,7 +41,7 @@
 
   <div class="actions">
     <a class="save" id="save" href="namecard.jpg">🖼️ Save to Photos</a>
-    <a class="contact" id="vcf" href="#">📇 Add to contacts</a>
+    <a class="contact" href="https://wa.me/85260253303?text=Hi%20Dr.%20Lam%2C%20I%20received%20your%20name%20card." target="_blank" rel="noopener">💬 WhatsApp Me</a>
   </div>
 
   <p id="hint" class="hint">Tip: tap <b>Save to Photos</b>, then choose <b>“Save Image”</b>.</p>
@@ -71,27 +71,6 @@
       window.open("namecard.jpg", "_blank");
     }
   });
-</script>
-<script>
-  // Build a vCard so phones can save Dr. Lam straight into Contacts.
-  var vcard = [
-    "BEGIN:VCARD",
-    "VERSION:3.0",
-    "N:Lam;Chun Leung;;Dr.;",
-    "FN:Dr. Lam Chun Leung 林俊良醫生",
-    "ORG:Shalom Medical Center 傳仁醫療中心",
-    "TITLE:Specialist in Psychiatry 精神科專科醫生",
-    "TEL;TYPE=work,voice:+85223320065",
-    "TEL;TYPE=cell,voice:+85265806506",
-    "TEL;TYPE=work,fax:+85223320097",
-    "EMAIL;TYPE=work:shalom-medical@dr.com",
-    "ADR;TYPE=work:;;Unit 1915-16, 19/F, Mira Place 1 Tower A;Tsim Sha Tsui;;;Hong Kong",
-    "END:VCARD"
-  ].join("\r\n");
-
-  var blob = new Blob([vcard], { type: "text/vcard" });
-  document.getElementById("vcf").href = URL.createObjectURL(blob);
-  document.getElementById("vcf").setAttribute("download", "DrLamChunLeung.vcf");
 </script>
 </body>
 </html>
