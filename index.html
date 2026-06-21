@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Lam Chun Leung 林俊良醫生 — Name Card</title>
+<meta property="og:title" content="Dr. Lam Chun Leung 林俊良醫生" />
+<meta property="og:description" content="Specialist in Psychiatry · Shalom Medical Center, Tsim Sha Tsui" />
+<meta property="og:image" content="namecard.jpg" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang HK", sans-serif;
+    background: #0f3d2e; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px; gap: 22px;
+  }
+  .card-wrap {
+    width: 100%; max-width: 560px; background: #fff;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  }
+  .card-wrap img { width: 100%; height: auto; display: block; }
+  .actions { display: flex; gap: 12px; width: 100%; max-width: 560px; flex-wrap: wrap; }
+  .actions a {
+    flex: 1; min-width: 160px; text-align: center; text-decoration: none;
+    padding: 15px 18px; border-radius: 12px; font-size: 1rem; font-weight: 600;
+  }
+  .save { background: #16a34a; color: #fff; }
+  .contact { background: #fff; color: #0f3d2e; }
+  .actions a:active { transform: scale(.98); }
+  footer { color: #ffffffaa; font-size: .8rem; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="card-wrap">
+    <img src="namecard.jpg" alt="Dr. Lam Chun Leung 林俊良醫生 — Name Card" />
+  </div>
+
+  <div class="actions">
+    <a class="save" href="namecard.jpg" download="DrLamChunLeung-namecard.jpg">⬇️ Save card image</a>
+    <a class="contact" id="vcf" href="#">📇 Add to contacts</a>
+  </div>
+
+  <footer>傳仁醫療中心 Shalom Medical Center · Tsim Sha Tsui</footer>
+
+<script>
+  // Build a vCard so phones can save Dr. Lam straight into Contacts.
+  var vcard = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "N:Lam;Chun Leung;;Dr.;",
+    "FN:Dr. Lam Chun Leung 林俊良醫生",
+    "ORG:Shalom Medical Center 傳仁醫療中心",
+    "TITLE:Specialist in Psychiatry 精神科專科醫生",
+    "TEL;TYPE=work,voice:+85223320065",
+    "TEL;TYPE=cell,voice:+85265806506",
+    "TEL;TYPE=work,fax:+85223320097",
+    "EMAIL;TYPE=work:shalom-medical@dr.com",
+    "ADR;TYPE=work:;;Unit 1915-16, 19/F, Mira Place 1 Tower A;Tsim Sha Tsui;;;Hong Kong",
+    "END:VCARD"
+  ].join("\r\n");
+
+  var blob = new Blob([vcard], { type: "text/vcard" });
+  document.getElementById("vcf").href = URL.createObjectURL(blob);
+  document.getElementById("vcf").setAttribute("download", "DrLamChunLeung.vcf");
+</script>
+</body>
+</html>
